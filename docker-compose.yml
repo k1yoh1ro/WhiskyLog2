@@ -4,22 +4,26 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: wlbackend
-    ports:
-      - 8080:8080
+    container_name: backend
+    expose:
+      - "8080"
     volumes:
       - ./backend:/app
     tty: true
+    networks:
+      - my-network
   frontend:
     build: 
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: wlfrontend
-    ports:
-      - 3000:3000
+    container_name: frontend
+    expose:
+      - "3000"
     volumes:
       - ./frontend:/app
     tty: true
+    networks:
+      - my-network
   database:
     build:
       context: ./database
@@ -53,11 +57,19 @@ services:
     ports:
       - "5050:80"
   reverse-proxy:
-    image: nginx
-    volumes:
-      - ./reverse-proxy/nginx.conf:/etc/nginx/nginx.conf
+    build:
+      context: ./reverse-proxy
+      dockerfile: Dockerfile
     ports:
       - 80:80
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - my-network
 volumes:
   postgres_data:
   pgadmindata:
+networks:
+  my-network:
+    driver: bridge
