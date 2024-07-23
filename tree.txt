@@ -1,0 +1,254 @@
+フォルダー パスの一覧:  ボリューム Windows
+ボリューム シリアル番号は 64A2-889F です
+C:.
+|   .env
+|   docker-compose.yml
+|   tree.txt
+|   
++---backend
+|   |   .gitignore
+|   |   Dockerfile
+|   |   HELP.md
+|   |   mvnw
+|   |   mvnw.cmd
+|   |   pom.xml
+|   |   
+|   +---.devcontainer
+|   |       devcontainer.json
+|   |       
+|   +---.mvn
+|   |   \---wrapper
+|   |           maven-wrapper.properties
+|   |           
+|   +---.vscode
+|   |       launch.json
+|   |       settings.json
+|   |       
+|   +---src
+|   |   +---main
+|   |   |   +---java
+|   |   |   |   \---com
+|   |   |   |       \---whiskylog
+|   |   |   |           \---backend
+|   |   |   |               |   BackendApplication.java
+|   |   |   |               |   
+|   |   |   |               \---controller
+|   |   |   |                       debugController.java
+|   |   |   |                       testController.java
+|   |   |   |                       
+|   |   |   \---resources
+|   |   |       |   application.properties
+|   |   |       |   
+|   |   |       +---static
+|   |   |       \---templates
+|   |   \---test
+|   |       \---java
+|   |           \---com
+|   |               \---whiskylog
+|   |                   \---backend
+|   |                           BackendApplicationTests.java
+|   |                           
+|   \---target
+|       |   backend-0.0.1-SNAPSHOT.jar
+|       |   backend-0.0.1-SNAPSHOT.jar.original
+|       |   
+|       +---classes
+|       |   |   application.properties
+|       |   |   
+|       |   \---com
+|       |       \---whiskylog
+|       |           \---backend
+|       |               |   BackendApplication.class
+|       |               |   
+|       |               \---controller
+|       |                       debugController.class
+|       |                       testController.class
+|       |                       
+|       +---generated-sources
+|       |   \---annotations
+|       +---generated-test-sources
+|       |   \---test-annotations
+|       +---maven-archiver
+|       |       pom.properties
+|       |       
+|       +---maven-status
+|       |   \---maven-compiler-plugin
+|       |       +---compile
+|       |       |   \---default-compile
+|       |       |           createdFiles.lst
+|       |       |           inputFiles.lst
+|       |       |           
+|       |       \---testCompile
+|       |           \---default-testCompile
+|       |                   createdFiles.lst
+|       |                   inputFiles.lst
+|       |                   
+|       +---surefire-reports
+|       |       com.whiskylog.backend.BackendApplicationTests.txt
+|       |       TEST-com.whiskylog.backend.BackendApplicationTests.xml
+|       |       
+|       \---test-classes
+|           \---com
+|               \---whiskylog
+|                   \---backend
+|                           BackendApplicationTests.class
+|                           
++---database
+|   |   Dockerfile
+|   |   
+|   \---init
+|           1_create_table.sql
+|           2_insert_testdata.sql
+|           
++---frontend
+|   |   .eslintrc.json
+|   |   .gitignore
+|   |   Dockerfile
+|   |   next-env.d.ts
+|   |   next.config.js
+|   |   package-lock.json
+|   |   package.json
+|   |   postcss.config.mjs
+|   |   tailwind.config.ts
+|   |   tsconfig.json
+|   |   
+|   +---.devcontainer
+|   |       devcontainer.json
+|   |       
+|   +---.next
+|   |   |   app-build-manifest.json
+|   |   |   build-manifest.json
+|   |   |   package.json
+|   |   |   react-loadable-manifest.json
+|   |   |   trace
+|   |   |   _events.json
+|   |   |   
+|   |   +---cache
+|   |   |   |   config.json
+|   |   |   |   
+|   |   |   +---swc
+|   |   |   |   \---plugins
+|   |   |   |       +---v7_linux_x86_64_0.106.15
+|   |   |   |       \---v7_windows_x86_64_0.106.15
+|   |   |   \---webpack
+|   |   |       +---client-development
+|   |   |       |       0.pack.gz
+|   |   |       |       1.pack.gz
+|   |   |       |       2.pack.gz
+|   |   |       |       3.pack.gz
+|   |   |       |       index.pack.gz
+|   |   |       |       index.pack.gz.old
+|   |   |       |       
+|   |   |       \---server-development
+|   |   |               0.pack.gz
+|   |   |               1.pack.gz
+|   |   |               2.pack.gz
+|   |   |               3.pack.gz
+|   |   |               4.pack.gz
+|   |   |               5.pack.gz
+|   |   |               6.pack.gz
+|   |   |               index.pack.gz
+|   |   |               index.pack.gz.old
+|   |   |               
+|   |   +---server
+|   |   |   |   app-paths-manifest.json
+|   |   |   |   interception-route-rewrite-manifest.js
+|   |   |   |   middleware-build-manifest.js
+|   |   |   |   middleware-manifest.json
+|   |   |   |   middleware-react-loadable-manifest.js
+|   |   |   |   next-font-manifest.js
+|   |   |   |   next-font-manifest.json
+|   |   |   |   pages-manifest.json
+|   |   |   |   server-reference-manifest.js
+|   |   |   |   server-reference-manifest.json
+|   |   |   |   webpack-runtime.js
+|   |   |   |   
+|   |   |   +---app
+|   |   |   |   |   page.js
+|   |   |   |   |   page_client-reference-manifest.js
+|   |   |   |   |   
+|   |   |   |   +---favicon.ico
+|   |   |   |   |       route.js
+|   |   |   |   |       
+|   |   |   |   \---_not-found
+|   |   |   |           page.js
+|   |   |   |           page_client-reference-manifest.js
+|   |   |   |           
+|   |   |   \---vendor-chunks
+|   |   |           @swc.js
+|   |   |           next.js
+|   |   |           
+|   |   +---static
+|   |   |   +---chunks
+|   |   |   |   |   app-pages-internals.js
+|   |   |   |   |   main-app.js
+|   |   |   |   |   polyfills.js
+|   |   |   |   |   webpack.js
+|   |   |   |   |   
+|   |   |   |   \---app
+|   |   |   |       |   layout.js
+|   |   |   |       |   page.js
+|   |   |   |       |   
+|   |   |   |       \---_not-found
+|   |   |   |               page.js
+|   |   |   |               
+|   |   |   +---css
+|   |   |   |   \---app
+|   |   |   |           layout.css
+|   |   |   |           
+|   |   |   +---development
+|   |   |   |       _buildManifest.js
+|   |   |   |       _ssgManifest.js
+|   |   |   |       
+|   |   |   +---media
+|   |   |   |       05a31a2ca4975f99-s.woff2
+|   |   |   |       513657b02c5c193f-s.woff2
+|   |   |   |       51ed15f9841b9f9d-s.woff2
+|   |   |   |       c9a5bc6a7c948fb0-s.p.woff2
+|   |   |   |       d6b16ce4a6175f26-s.woff2
+|   |   |   |       ec159349637c90ad-s.woff2
+|   |   |   |       fd4db3eb5472fc27-s.woff2
+|   |   |   |       
+|   |   |   \---webpack
+|   |   |       |   5ec64ecbc186d0a0.webpack.hot-update.json
+|   |   |       |   633457081244afec._.hot-update.json
+|   |   |       |   d10efc43437e6c15.webpack.hot-update.json
+|   |   |       |   webpack.5ec64ecbc186d0a0.hot-update.js
+|   |   |       |   webpack.d10efc43437e6c15.hot-update.js
+|   |   |       |   
+|   |   |       \---app
+|   |   |               layout.d10efc43437e6c15.hot-update.js
+|   |   |               
+|   |   \---types
+|   |       |   package.json
+|   |       |   
+|   |       \---app
+|   |               layout.ts
+|   |               page.ts
+|   |               
+|   +---.vscode
+|   |       launch.json
+|   |       
+|   +---node_modules
+|   |   |   .package-lock.json
+|   |   |   
+|   |   +---.bin
+|   +---public
+|   |       next.svg
+|   |       vercel.svg
+|   |       
+|   \---src
+|       \---app
+|           |   favicon.ico
+|           |   globals.css
+|           |   layout.tsx
+|           |   page.tsx
+|           |   
+|           +---(portal)
+|           \---api
+|                   api.ts
+|                   
+\---reverse-proxy
+        Dockerfile
+        nginx.conf
+        

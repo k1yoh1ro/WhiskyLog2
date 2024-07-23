@@ -1,46 +1,46 @@
 version: '3.8'
 services:
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    build: ./backend
     container_name: backend
-    expose:
-      - "8080"
+    ports:
+      - "8080:8080"
     volumes:
-      - ./backend:/app
-    tty: true
-    networks:
-      - my-network
-  frontend:
-    build: 
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: frontend
-    expose:
-      - "3000"
-    volumes:
-      - ./frontend:/app
-    tty: true
-    networks:
-      - my-network
-  database:
-    build:
-      context: ./database
-      dockerfile: Dockerfile
-    container_name: wlpostgresql
+      - ./backend:/workspace
     env_file:
       - .env
+    networks:
+      - my-network
+    depends_on:
+      - database
+    tty: true
+  frontend:
+    build:  ./frontend
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/workspace
+    env_file:
+      - .env
+    networks:
+      - my-network
+    tty: true
+  database:
+    build: ./database
+    container_name: database
     environment:
       POSTGRES_USER: $POSTGRES_USER
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
       POSTGRES_DB: $POSTGRES_DB
+    env_file:
+      - .env
     ports:
       - 5432:5432
     restart: always
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./db/init:/docker-entrypoint-initdb.d
+      - ./database/init:/docker-entrypoint-initdb.d
   pgadmin:
     image: dpage/pgadmin4:latest
     container_name: db_pgadmin
@@ -57,19 +57,18 @@ services:
     ports:
       - "5050:80"
   reverse-proxy:
-    build:
-      context: ./reverse-proxy
-      dockerfile: Dockerfile
+    build: ./reverse-proxy
+    container_name: reverse-proxy
     ports:
       - 80:80
+    networks:
+      - my-network
     depends_on:
       - backend
       - frontend
-    networks:
-      - my-network
-volumes:
-  postgres_data:
-  pgadmindata:
 networks:
   my-network:
     driver: bridge
+volumes:
+  postgres_data:
+  pgadmindata:

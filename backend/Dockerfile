@@ -1,16 +1,9 @@
 FROM eclipse-temurin:21 as builder
 
-# JARファイルを作成するためにMavenを使用する
-COPY mvnw .
-COPY .mvn .mvn
-COPY pom.xml .
-COPY src src
+WORKDIR /workspace
 
-# Maven Wrapperを使ってプロジェクトをビルドする
-RUN ./mvnw install
+COPY . .
 
-# JARファイルをコピーする
-COPY target/backend-0.0.1-SNAPSHOT.jar app.jar
+RUN ./mvnw clean package
 
-# アプリケーションを実行する
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+CMD ["./mvnw", "spring-boot:run"]

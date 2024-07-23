@@ -1,0 +1,17 @@
+{
+    "name": "Frontend Development",
+    "dockerFile": "../Dockerfile",
+    "workspaceFolder": "/workspace",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "dbaeumer.vscode-eslint",
+          "esbenp.prettier-vscode"
+        ]
+      },
+      "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+      }
+    }
+}
+  
