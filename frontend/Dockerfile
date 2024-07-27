@@ -1,12 +1,9 @@
 # ベースイメージを指定します
 FROM node:20-alpine
 
-WORKDIR /workspace
-
-# # src ディレクトリの全てのファイルをコピー
+WORKDIR /workspace/frontend
+COPY package*.json ./
+RUN npm install
 COPY . .
-
-# npm の依存関係をインストール
-RUN npm install -g next
-
+EXPOSE 3000
 CMD ["npm", "run", "dev"]

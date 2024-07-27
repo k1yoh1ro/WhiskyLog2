@@ -23,7 +23,7 @@ export default function Home() {
     <>
       <div className="container">
         <div>{testString}</div>
-        <div>testStri</div>
+        <div>testString</div>
       </div>
     </>
   )

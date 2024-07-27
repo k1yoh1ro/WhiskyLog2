@@ -1,0 +1,29 @@
+{
+    "name": "My Dev Container",
+    "dockerComposeFile": ["../docker-compose.yml"],
+    "service": "backend",  // メインのサービスを指定
+    "workspaceFolder": "/workspace/backend",
+    "shutdownAction": "stopCompose",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+            "ms-azuretools.vscode-docker",
+            "vscjava.vscode-spring-boot",
+            "esbenp.prettier-vscode",
+            "dbaeumer.vscode-eslint",
+            "vscjava.vscode-java-pack",     // Extension Pack for Java
+            "vscjava.vscode-java-debug"     // Debugger for Java
+            ]
+        },
+        "settings": {
+            "terminal.integrated.shell.linux": "/bin/bash",
+            "java.home": "/docker-java-home",
+            "editor.formatOnSave": true
+        },
+        "postCreateCommand": "mvn clean install",
+        "runServices": ["backend", "frontend"],
+        "forwardPorts": [8080, 5005, 3000],
+        "remoteUser": "vscode"
+    }
+}
+  

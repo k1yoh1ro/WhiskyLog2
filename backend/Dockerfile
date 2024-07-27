@@ -1,9 +1,7 @@
-FROM eclipse-temurin:21 as builder
-
-WORKDIR /workspace
-
+FROM maven:latest
+WORKDIR /workspace/backend
 COPY . .
-
-RUN ./mvnw clean package
-
-CMD ["./mvnw", "spring-boot:run"]
+RUN mvn clean install
+EXPOSE 8080
+EXPOSE 5005
+CMD ["java", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005", "-jar", "target/backend-0.0.1-SNAPSHOT.jar"]
