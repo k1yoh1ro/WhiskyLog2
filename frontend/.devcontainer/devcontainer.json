@@ -1,7 +1,7 @@
 {
-    "name": "Frontend Development",
+    "name": "frontend",
     "dockerFile": "../Dockerfile",
-    "workspaceFolder": "/workspace",
+    "workspaceFolder": "/app",
     "customizations": {
       "vscode": {
         "extensions": [
