@@ -1,10 +1,17 @@
-# ベースイメージを指定します
-FROM node:20-alpine
+# ベースイメージを指定
+FROM node:18
 
+# 作業ディレクトリを設定
 WORKDIR /app
 
-# # src ディレクトリの全てのファイルをコピー
-COPY ./src .
+# package.jsonとpackage-lock.jsonをコピーして依存関係をインストール
+COPY package*.json ./
+RUN npm install
 
-# npm の依存関係をインストール
-RUN npm install -g next
+# ソースコードをコピー
+COPY . .
+
+# ポートを公開
+EXPOSE 3000
+
+CMD ["npm", "run", "dev"]
