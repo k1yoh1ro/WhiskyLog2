@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class testController {
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/data")
+    @GetMapping("/login")
     public DataResponse getData() {
         return new DataResponse("Hello from backend");
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping("/data")
+    @PostMapping("/login")
     public DataResponse postData(@RequestBody DataRequest dataRequest) {
         return new DataResponse("Received: " + dataRequest.getMessage());
     }
