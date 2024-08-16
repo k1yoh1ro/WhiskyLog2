@@ -1,6 +1,8 @@
 {
     "name": "frontend",
-    "dockerFile": "../Dockerfile",
+    // "dockerFile": "../Dockerfile",
+    "dockerComposeFile": "../../docker-compose.yml",
+	  "service": "frontend",
     "workspaceFolder": "/app",
     "customizations": {
       "vscode": {

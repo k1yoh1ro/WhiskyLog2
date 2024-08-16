@@ -13,5 +13,6 @@ COPY . .
 
 # ポートを公開
 EXPOSE 3000
+EXPOSE 9229
 
-CMD ["npm", "run", "dev"]
+CMD ["node", "--inspect=0.0.0.0:9229", "app/node_modules/.bin/next", "dev"]
