@@ -1,18 +1,42 @@
-# ベースイメージを指定
-FROM node:18
+#########################################################################################################
+# このDockerFileの参考先 → https://cookin.dev/website/303/ 　　　　　                                     #
+# versel提供の公式サイト　→ https://github.com/vercel/next.js/blob/canary/examples/with-docker/Dockerfile #
+#########################################################################################################
 
-# 作業ディレクトリを設定
+# パッケージインストール用ベースイメージ
+FROM node:18-alpine as deps
+
+# 参考にして追加 → https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine
+RUN apk add --no-cache libc6-compat
+
+# 作業ディレクトリを作成し、そこに移動する(あれば移動するだけ)
 WORKDIR /app
 
-# package.jsonとpackage-lock.jsonをコピーして依存関係をインストール
+# package.json package-lock.jsonをコンテナにコピー
 COPY package*.json ./
-RUN npm install
 
-# ソースコードをコピー
+# npmをインストール
+RUN \
+if [ -f package-lock.json ]; then npm ci; \
+else echo "Lockfile not found." && exit 1; \
+fi
+
+    
+# アプリ実行するためのベースイメージ
+FROM node:18-alpine as builder
+
+# depsと同じディレクトリに移動
+WORKDIR /app
+
+# depsステージで作成されたnode_modulesフォルダをコピー
+COPY --from=deps /app/node_modules ./node_modules
+
+# ソースのコピー
 COPY . .
 
-# ポートを公開
-EXPOSE 3000
-EXPOSE 9229
+# npmビルド
+RUN npm run build
 
-CMD ["node", "--inspect=0.0.0.0:9229", "app/node_modules/.bin/next", "dev"]
+
+# EXPOSE 3000
+# CMD ["npm", "run", "dev"]

@@ -1,16 +1,21 @@
-# ベースイメージとして OpenJDK を使用
-FROM openjdk:21-jdk-slim
+# アプリ実行前の準備の為のベースイメージ
+FROM maven:3.9.8-eclipse-temurin-21-alpine as deps
 
-# アプリケーション JAR ファイルの配置先を作成
+# 作業ディレクトリを作成し、そこに移動する
 WORKDIR /app
 
-# JAR ファイルをコンテナにコピー
-# COPY target/backend-0.0.1-SNAPSHOT.jar app.jar
-COPY . .
+# mavenのセットアップ
+COPY .mvn .mvn
 
-# デバッグ用のポートを公開（必要に応じて）
-EXPOSE 8080
-EXPOSE 5005
+# Mavenプロジェクトのビルド(依存関係の解決)
+COPY pom.xml .
 
-# デバッグモードで Java アプリケーションを実行
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar target/backend-0.0.1-SNAPSHOT.jar"]
+# アプリのビルド
+COPY src src
+RUN mvn -B package
+
+# アプリ実行するための軽量ベースイメージ
+FROM openjdk:17-jdk-slim as builder
+
+# アプリのJarファイルコピー
+COPY --from=deps /app/target/*.jar /app/app.jar
