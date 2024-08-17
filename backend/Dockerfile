@@ -10,7 +10,7 @@ COPY . .
 RUN mvn -B install
 
 # アプリケーションを実行するコマンドを指定
-ENTRYPOINT ["java", "-jar", "app/target/backend-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "target/backend-0.0.1-SNAPSHOT.jar"]
 
 # # 開発時のホットリロード用コマンド
 # CMD ["mvn", "spring-boot:run"]
