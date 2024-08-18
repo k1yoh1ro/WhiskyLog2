@@ -5,7 +5,7 @@ FROM maven:3.9.8-eclipse-temurin-21-alpine as deps
 WORKDIR /app
 
 # アプリのビルド
-COPY .mvn .
+# COPY .mvn .
 COPY . .
 RUN mvn -B install
 
