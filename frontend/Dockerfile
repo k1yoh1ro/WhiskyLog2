@@ -34,9 +34,14 @@ COPY --from=deps /app/node_modules ./node_modules
 # ソースのコピー
 COPY . .
 
+# デバッグモードで実行するための環境変数設定
+ENV NODE_OPTIONS="--inspect=0.0.0.0:9230"
+
 # npmビルド
 RUN npm run build
 
-
 EXPOSE 3000
-CMD ["npm", "run", "dev"]
+EXPOSE 9230
+
+# 環境変数を使ってCMDを設定
+CMD ["sh", "-c", "node $NODE_OPTIONS node_modules/.bin/next dev"]

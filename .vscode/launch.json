@@ -6,11 +6,19 @@
     "configurations": [
         // attach
         {
+            "name": "Attach to Chrome",
+            "port": 3000,
+            "request": "attach",
+            "type": "chrome",
+            "url": "http://localhost/",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
             "type": "java",
             "name": "backend attach",
             "request": "attach",
             "hostName": "localhost",
-            "port": 8080
+            "port": 5005
         },
 
         // launch
