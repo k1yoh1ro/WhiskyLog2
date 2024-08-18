@@ -10,8 +10,6 @@ services:
       - "5005:5005"
     networks:
       - app-network
-    environment:
-      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
     depends_on:
       - database
 
