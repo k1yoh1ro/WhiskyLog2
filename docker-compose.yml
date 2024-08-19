@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   backend:
+    container_name: backend
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -14,18 +15,23 @@ services:
       - database
 
   frontend:
+    container_name: frontend
     build:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
-      - "9230:9230"
+      - "9229:9229"
+    volumes:
+      - ./frontend:/app
     networks:
       - app-network
 
   reverse-proxy:
+    container_name: reverse-proxy
     build:
       context: ./reverse-proxy
+      dockerfile: Dockerfile
     ports:
       - "80:80"
     networks:
@@ -35,7 +41,10 @@ services:
       - frontend
 
   database:
-    image: postgres:13
+    container_name: database
+    build:
+      context: ./database
+      dockerfile: Dockerfile
     volumes:
       - db-data:/var/lib/postgresql/data
       - ./database/init:/docker-entrypoint-initdb.d

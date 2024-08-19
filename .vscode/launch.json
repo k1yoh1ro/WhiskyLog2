@@ -6,12 +6,14 @@
     "configurations": [
         // attach
         {
-            "name": "Attach to Chrome",
-            "port": 3000,
+            "name": "frontend attach",
+            "port": 9229,
             "request": "attach",
             "type": "chrome",
             "url": "http://localhost/",
-            "webRoot": "${workspaceFolder}"
+            "remoteRoot": "/app",
+            "localRoot": "${workspaceFolder}",
+            "protocol": "inspector"
         },
         {
             "type": "java",
@@ -22,6 +24,16 @@
         },
 
         // launch
+        {
+            "type": "chrome",
+            "name": "frontend launch",
+            "request": "launch",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}",
+            "sourceMapPathOverrides": {
+                "webpack:///./*": "${webRoot}/src/*"
+            }
+        },
         {
             "type": "java",
             "name": "backend launch",
