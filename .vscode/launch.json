@@ -7,7 +7,7 @@
         // attach
         {
             "name": "frontend attach",
-            "port": 9229,
+            "port": 3000,
             "request": "attach",
             "type": "chrome",
             "url": "http://localhost/",
@@ -20,7 +20,8 @@
             "name": "backend attach",
             "request": "attach",
             "hostName": "localhost",
-            "port": 5005
+            "port": 5005,
+            "projectName": "WhiskyLog"
         },
 
         // launch

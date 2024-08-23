@@ -8,11 +8,9 @@ WORKDIR /app
 COPY . .
 RUN mvn -B install
 
-# デバッグモード実行設定
-ENV JAVA_OPTS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
-
 # アプリケーションを実行するコマンドを指定
-CMD ["sh", "-c", "java $JAVA_OPTS -jar target/backend-0.0.1-SNAPSHOT.jar"]
+# CMD ["sh", "-c", "java $JAVA_OPTS -jar target/backend-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005", "-cp", "target/classes:target/dependency/*", "com.whiskylog.backend.BackendApplication"]
 
 # アプリ実行時にポート指定
 EXPOSE 8080
