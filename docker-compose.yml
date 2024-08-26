@@ -9,6 +9,10 @@ services:
     ports:
       - "8080:8080"
       - "5005:5005"
+    volumes:
+      - ./backend:/app
+    restart: always
+    command: mvn spring-boot:run
     networks:
       - app-network
     depends_on:

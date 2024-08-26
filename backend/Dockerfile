@@ -4,14 +4,19 @@ FROM maven:3.9.8-eclipse-temurin-21-alpine as deps
 # 作業ディレクトリを作成し、そこに移動する
 WORKDIR /app
 
-# アプリのビルド
-COPY . .
-RUN mvn -B install
+# 依存関係のみを先にインストールしてキャッシュを利用
+COPY pom.xml .
+RUN mvn dependency:go-offline -B
 
-# アプリケーションを実行するコマンドを指定
-# CMD ["sh", "-c", "java $JAVA_OPTS -jar target/backend-0.0.1-SNAPSHOT.jar"]
-CMD ["java", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005", "-cp", "target/classes:target/dependency/*", "com.whiskylog.backend.BackendApplication"]
+# アプリケーションのソースコードをコピー
+COPY src ./src
 
-# アプリ実行時にポート指定
+# アプリケーションをビルド
+RUN mvn install -DskipTests
+
+# # ホットリロードとデバッグのためのCMDコマンド
+# CMD ["java", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005", "-Dspring.devtools.remote.secret=mysecret", "-Dspring-boot.run.profiles=dev", "-cp", "target/classes:target/dependency/*", "com.whiskylog.backend.BackendApplication"]
+
+# ポートの指定
 EXPOSE 8080
 EXPOSE 5005
