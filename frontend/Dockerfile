@@ -1,7 +1,7 @@
 # ベースイメージとしてNode.jsを使用
-FROM node:18-alpine as base
+FROM node:18-alpine AS base
 
-FROM base as deps
+FROM base AS deps
 
 # これが必要な理由は→https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine
 RUN apk add --no-cache libc6-compat
