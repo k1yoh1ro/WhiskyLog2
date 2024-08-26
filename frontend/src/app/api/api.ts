@@ -1,6 +1,6 @@
 export const test = async () => {
     let url = "http://localhost/api";
-    const res = await fetch(`${url}/greeting`, {
+    const res = await fetch(`${url}/login`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
