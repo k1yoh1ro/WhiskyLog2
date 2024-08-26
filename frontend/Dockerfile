@@ -24,7 +24,7 @@ COPY . .
 
 # next.jsはテレメトリデータを匿名で収集する。必要ないので機能をオフ。
 # テレメトリデータに関しては検索して。
-ENV NEXT_TELEMETRY_DISABLED 1
+ENV NEXT_TELEMETRY_DISABLED=1
 
 # アプリケーションをコンパイル
 RUN \
@@ -37,10 +37,11 @@ RUN \
 # 本番イメージ
 FROM base AS runner
 WORKDIR /app
+COPY . .
 
 # 環境変数
-ENV NODE_ENV production
-ENV NEXT_TELEMETRY_DISABLED 1
+ENV NODE_ENV=development
+ENV NEXT_TELEMETRY_DISABLED=1
 
 # コンテナ内のLinuxユーザーとグループを追加
 RUN addgroup --system --gid 1001 nodejs
@@ -51,7 +52,7 @@ RUN adduser --system --uid 1001 nextjs
 COPY --from=builder /app/public ./public
 
 # プリレンダリングキャッシュに適切な権限を付与
-RUN mkdir .next
+# RUN mkdir .next
 RUN chown nextjs:nodejs .next
 
 # 出力トレースを自動的に活用して画像サイズを縮小
@@ -67,4 +68,5 @@ ENV PORT=3000
 
 # server.js は、スタンドアロン出力から次のビルドによって作成される
 # https://nextjs.org/docs/pages/api-reference/next-config-js/output
-CMD HOSTNAME="0.0.0.0" node server.js
+# CMD HOSTNAME="0.0.0.0" node server.js
+CMD ["npm", "run", "dev"]
