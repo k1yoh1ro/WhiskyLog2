@@ -1,46 +1,33 @@
 {
-    // IntelliSense を使用して利用可能な属性を学べます。
-    // 既存の属性の説明をホバーして表示します。
-    // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        // attach
-        {
-            "name": "frontend attach",
-            "port": 3000,
-            "request": "attach",
-            "type": "chrome",
-            "url": "http://localhost/",
-            "remoteRoot": "/app",
-            "localRoot": "${workspaceFolder}",
-            "protocol": "inspector"
-        },
-        {
-            "type": "java",
-            "name": "backend attach",
-            "request": "attach",
-            "hostName": "localhost",
-            "port": 5005,
-            "projectName": "WhiskyLog"
-        },
+  // IntelliSense を使用して利用可能な属性を学べます。
+  // 既存の属性の説明をホバーして表示します。
+  // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    // backend
+    {
+        "type": "java",
+        "name": "backend attach",
+        "request": "attach",
+        "hostName": "localhost",
+        "port": 5005,
+        "projectName": "WhiskyLog"
+    },
 
-        // launch
-        {
-            "type": "chrome",
-            "name": "frontend launch",
-            "request": "launch",
-            "url": "http://localhost:3000",
-            "webRoot": "${workspaceFolder}",
-            "sourceMapPathOverrides": {
-                "webpack:///./*": "${webRoot}/src/*"
-            }
-        },
-        {
-            "type": "java",
-            "name": "backend launch",
-            "request": "launch",
-            "mainClass": "com.whiskylog.backend.BackendApplication",
-            "projectName": "backend"
-        }
-    ]
+    // frontend
+    {
+      "name": "Next.js: debug server-side",
+      "type": "node",
+      "request": "attach",
+      "port": 9229,
+      "skipFiles": ["<node_internals>/**"],
+      "cwd": "${workspaceFolder}/frontend"
+    },
+    {
+      "name": "Next.js: debug client-side",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000"
+    },
+  ]
 }
