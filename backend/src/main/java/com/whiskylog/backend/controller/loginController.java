@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-public class testController {
+public class loginController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/login")
@@ -17,7 +17,6 @@ public class testController {
         return new DataResponse("Hello from backend");
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/login")
     public DataResponse postData(@RequestBody DataRequest dataRequest) {
         return new DataResponse("Received: " + dataRequest.getMessage());
