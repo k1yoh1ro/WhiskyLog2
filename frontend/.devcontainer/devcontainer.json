@@ -1,0 +1,19 @@
+{
+    "name": "frontend",
+    // "dockerFile": "../Dockerfile",
+    "dockerComposeFile": "../../docker-compose.yml",
+	  "service": "frontend",
+    "workspaceFolder": "/app",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "dbaeumer.vscode-eslint",
+          "esbenp.prettier-vscode"
+        ]
+      },
+      "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+      }
+    }
+}
+  

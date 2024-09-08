@@ -1,0 +1,33 @@
+{
+  // IntelliSense を使用して利用可能な属性を学べます。
+  // 既存の属性の説明をホバーして表示します。
+  // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    // backend
+    {
+        "type": "java",
+        "name": "backend attach",
+        "request": "attach",
+        "hostName": "localhost",
+        "port": 5005,
+        "projectName": "WhiskyLog"
+    },
+
+    // frontend
+    {
+      "name": "Next.js: debug server-side",
+      "type": "node",
+      "request": "attach",
+      "port": 9229,
+      "skipFiles": ["<node_internals>/**"],
+      "cwd": "${workspaceFolder}/frontend"
+    },
+    {
+      "name": "Next.js: debug client-side",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000"
+    },
+  ]
+}

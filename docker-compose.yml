@@ -1,0 +1,92 @@
+version: '3.8'
+
+services:
+  backend:
+    container_name: backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+      - "5005:5005"
+    volumes:
+      - ./backend:/app
+    restart: always
+    command: mvn spring-boot:run
+    networks:
+      - app-network
+    depends_on:
+      - database
+
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+      - "9229:9229"
+    volumes:
+      - ./frontend:/app
+    command: sh -c "npm run dev"
+    environment:
+      - WATCHPACK_POLLING=true
+    networks:
+      - app-network
+
+  reverse-proxy:
+    container_name: reverse-proxy
+    build:
+      context: ./reverse-proxy
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    networks:
+      - app-network
+    depends_on:
+      - backend
+      - frontend
+
+  database:
+    container_name: database
+    build:
+      context: ./database
+      dockerfile: Dockerfile
+    environment:
+      POSTGRES_DB: $POSTGRES_DB
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+    restart: always
+    volumes:
+      # - ./database:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: db_pgadmin
+    env_file:
+      - .env
+    volumes:
+      - pgadmindata:/var/lib/pgadmin4/storage
+    environment:
+      PGADMIN_DEFAULT_EMAIL: $PGADMIN_DEFAULT_EMAIL
+      PGADMIN_DEFAULT_PASSWORD: $PGADMIN_DEFAULT_PASSWORD
+      TZ: Asia/Tokyo
+    depends_on:
+      - database
+    ports:
+      - "5555:80"
+
+volumes:
+  db-data:
+  pgadmindata:
+
+networks:
+  app-network:
+    driver: bridge
