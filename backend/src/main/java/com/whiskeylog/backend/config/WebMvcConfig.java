@@ -1,4 +1,4 @@
-package com.whiskylog.backend.config;
+package com.whiskeylog.backend.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
