@@ -56,6 +56,7 @@ services:
       POSTGRES_DB: $POSTGRES_DB
       POSTGRES_USER: $POSTGRES_USER
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+    command: -c 'config_file=/etc/postgresql/postgresql.conf'
     env_file:
       - .env
     ports:
@@ -64,8 +65,8 @@ services:
       - app-network
     restart: always
     volumes:
-      # - ./database:/var/lib/postgresql/data
       - ./database/init:/docker-entrypoint-initdb.d
+      - ./database/config/postgresql.conf:/etc/postgresql/postgresql.conf
 
   pgadmin:
     image: dpage/pgadmin4:latest
