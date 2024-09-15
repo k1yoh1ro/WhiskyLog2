@@ -14,7 +14,7 @@ export default function Home() {
   const handleSubmit = async (e: React.FormEvent) =>  {
     e.preventDefault();
 
-    if ((formData.id = "") || (formData.password = "")) {
+    if ((formData.id === "") || (formData.password === "")) {
       setErrorMessage("※未入力の項目があります")
       setIsHidden(false)
     return
@@ -25,7 +25,7 @@ export default function Home() {
     const userInfoData = await getUser(formData.id)
     const now = new Date()
 
-    if ((userInfoData.userID = "") || (userInfoData.loginPass != formData.password)) {
+    if ((userInfoData.userID === "") || (userInfoData.loginPass !== formData.password)) {
       setErrorMessage("ユーザーが存在しないか、パスワードが間違っています。")
       setIsHidden(false)
 
