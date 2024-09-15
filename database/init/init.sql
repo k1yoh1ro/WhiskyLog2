@@ -6,19 +6,19 @@ CREATE DATABASE WLDB;
 
 drop table if exists users;
 create table users (
-  user_id character varying(10) not null
+  id character varying(10) not null
   , login_pass character varying(255)
-  , user_name_f character varying(100)
-  , user_name_l character varying(100)
+  , name_f character varying(100)
+  , name_l character varying(100)
   , age character varying(3)
   , mail_address character varying(255)
-  , constraint change_requests_PKC primary key (user_id)
+  , constraint change_requests_PKC primary key (id)
 );
 
 create unique index users_IX1
-  on users(user_id);
+  on users(id);
 
-INSERT INTO users (user_id, login_pass, user_name_f, user_name_l, age, mail_address)
+INSERT INTO users (id, login_pass, name_f, name_l, age, mail_address)
 VALUES
 ('00000001', 'hogehoge', '申請', '太郎', '33', 'ex@example.com'),
 ('00000002', 'hogehoge', '申請', '太郎', '33', 'ex@example.com'),
