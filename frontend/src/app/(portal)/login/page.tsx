@@ -52,7 +52,7 @@ export default function Home() {
             <input
               className="input-text form-control mb-5 botder-3"
               type="text"
-              defaultValue={formData.id}
+              value={formData.id}
               placeholder="ID"
               onChange={(e) => setFormData({...formData, id: e.target.value})}
               autoComplete="on"
@@ -60,7 +60,7 @@ export default function Home() {
             <input
               className="input-text form-control mb-5 botder-3"
               type="password"
-              defaultValue={formData.password}
+              value={formData.password}
               placeholder="PASSWORD"
               onChange={(e) => setFormData({...formData, password: e.target.value})}
               autoComplete="new-password"
