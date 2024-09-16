@@ -54,7 +54,7 @@ export default function Home() {
               type="text"
               defaultValue={formData.id}
               placeholder="ID"
-              onBlur={(e) => setFormData({...formData, id: e.target.value})}
+              onChange={(e) => setFormData({...formData, id: e.target.value})}
               autoComplete="on"
             />
             <input
@@ -62,7 +62,7 @@ export default function Home() {
               type="password"
               defaultValue={formData.password}
               placeholder="PASSWORD"
-              onBlur={(e) => setFormData({...formData, password: e.target.value})}
+              onChange={(e) => setFormData({...formData, password: e.target.value})}
               autoComplete="new-password"
             />
             <div className="button-group col-sm-5 text-centere mx-auto">
