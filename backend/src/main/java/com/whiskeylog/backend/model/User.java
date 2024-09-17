@@ -32,6 +32,14 @@ public class User {
         this.id = id;
     }
 
+    public String getLoginPass() {
+        return login_pass;
+    }
+
+    public void setLoginPass(String login_pass) {
+        this.login_pass = login_pass;
+    }
+
     public String getName_f() {
         return name_f;
     }
