@@ -28,7 +28,6 @@ export default function Home() {
     if ((userInfoData.userID === "") || (userInfoData.loginPass !== formData.password)) {
       setErrorMessage("ユーザーが存在しないか、パスワードが間違っています。")
       setIsHidden(false)
-
     } else {
       //認証成功した際の処理
       setIsHidden(true)

@@ -1,14 +1,15 @@
 import { User } from "@/types/types"
 import * as common from "@/utility/common"
 
-export const getUser = async (formData: {}): Promise<User> => {
+export const getUser = async (id: String): Promise<User> => {
     let url = common.isDev();
     const res = await fetch(`${url}/api/login`, {
-        method: 'GET',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-          },
-          cache: 'no-store'
+        },
+        body: JSON.stringify({id}),
+        cache: 'no-store'
     });
     const userArr = await res.json();
     return userArr;
