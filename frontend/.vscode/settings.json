@@ -1,0 +1,10 @@
+{
+    "editor.formatOnSave": true,
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000,
+    "typescript.tsserver.watchOptions": {
+        "watchFile": "useFsEvents"
+    },
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "nextjs.autoAttach": true
+}

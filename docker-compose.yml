@@ -26,7 +26,7 @@ services:
       - "9229:9229"
     volumes:
       - ./frontend:/app
-    command: sh -c "npm run dev"
+    command: [ npm, run, dev ]
     environment:
       - WATCHPACK_POLLING=true
     networks:
@@ -85,6 +85,7 @@ services:
 volumes:
   db-data:
   pgadmindata:
+
 
 networks:
   app-network:
