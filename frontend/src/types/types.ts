@@ -1,8 +1,8 @@
 export interface User {
-    userID: string
-    loginPass: string
-    userNameF: string
-    userNamel: string
+    id: string
+    login_pass: string
+    name_f: string
+    name_l: string
     age: number
     mail_address: string
 }
