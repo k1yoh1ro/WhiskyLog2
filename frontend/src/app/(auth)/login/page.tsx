@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 
 
 export default function Home() {
-  const [formData, setFormData] = useState({ id: '', login_pass: '' });
+  const [formData, setFormData] = useState({ id: '', password: '' });
   const [errorMessage, setErrorMessage] = useState('');
   const [isHidden, setIsHidden] = useState(false);
   const router = useRouter();
@@ -14,7 +14,7 @@ export default function Home() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if ((formData.id === "") || (formData.login_pass === "")) {
+    if ((formData.id === "") || (formData.password === "")) {
       setErrorMessage("※未入力の項目があります")
       setIsHidden(false)
       return
@@ -25,7 +25,7 @@ export default function Home() {
     const userInfo = await getUser(formData.id)
     const now = new Date()
 
-    if ((userInfo.id === "") || (userInfo.login_pass !== formData.login_pass)) {
+    if ((userInfo.id === "") || (userInfo.password !== formData.password)) {
       setErrorMessage("ユーザーが存在しないか、パスワードが間違っています。")
       setIsHidden(false)
     } else {
@@ -60,9 +60,9 @@ export default function Home() {
             <input
               className="input-text form-control mb-5 botder-3"
               type="password"
-              value={formData.login_pass}
+              value={formData.password}
               placeholder="PASSWORD"
-              onChange={(e) => setFormData({ ...formData, login_pass: e.target.value })}
+              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
               autoComplete="new-password"
             />
             <div className="button-group col-sm-5 text-centere mx-auto">

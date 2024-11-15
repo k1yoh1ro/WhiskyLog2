@@ -2,7 +2,7 @@ package com.whiskeylog.backend.model;
 
 public class LoginRequest {
     private String id;
-    private String login_pass;
+    private String username;
 
     // コンストラクタ
     public LoginRequest() {}
@@ -16,11 +16,11 @@ public class LoginRequest {
         this.id = id;
     }
 
-    public String getLogin_pass() {
-        return login_pass;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogin_pass(String login_pass) {
-        this.login_pass = login_pass;
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

@@ -11,20 +11,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
 
-    @JsonProperty("login_pass")
-    private String login_pass;
+    @JsonProperty("password")
+    private String password;
     
-    @JsonProperty("name_f")
-    private String name_f;
+    @JsonProperty("username")
+    private String username;
     
-    @JsonProperty("name_l")
-    private String name_l;
-    
-    @JsonProperty("age")
-    private String age;
-
-    @JsonProperty("mail_address")
-    private String mail_address;
+    @JsonProperty("mailaddress")
+    private String mailaddress;
 
     public String getId() {
         return id;
@@ -34,43 +28,27 @@ public class User {
         this.id = id;
     }
 
-    public String getLoginPass() {
-        return login_pass;
+    public String getPassword() {
+        return password;
     }
 
-    public void setLoginPass(String login_pass) {
-        this.login_pass = login_pass;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getName_f() {
-        return name_f;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName_f(String name_f) {
-        this.name_f = name_f;
+    public void setUsername(String username) {
+        this.username = username;
     }
     
-    public String getName_l() {
-        return name_l;
-    }
-
-    public void setName_l(String name_l) {
-        this.name_l = name_l;
-    }
-
-    public String getAge() {
-        return age;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
-    }
-
     public String getMailAddress() {
-        return mail_address;
+        return mailaddress;
     }
 
     public void setMailAddress(String mail_address) {
-        this.mail_address = mail_address;
+        this.mailaddress = mail_address;
     }
 }
