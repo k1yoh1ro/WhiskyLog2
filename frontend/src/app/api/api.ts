@@ -8,9 +8,26 @@ export const getUser = async (id: String): Promise<User> => {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({id}),
+        body: JSON.stringify({ id }),
         cache: 'no-store'
     });
     const userArr = await res.json();
     return userArr;
-} 
+}
+
+export const uploadImage = async (whiskeyId: number, file: File): Promise<void> => {
+    let url = common.isDev();
+    const formData = new FormData();
+    formData.append("whiskeyId", whiskeyId.toString());
+    formData.append("name", file.name);
+    formData.append("file", file);
+
+    const response = await fetch(`${url}/api/image/upload`, {
+        method: "POST",
+        body: formData,
+    });
+
+    if (!response.ok) {
+        throw new Error("Failed to upload image");
+    }
+};

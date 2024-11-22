@@ -4,3 +4,9 @@ export interface User {
     username: string
     mailaddress: string
 }
+
+export interface WhiskeyImage {
+    whiskeyId: number;
+    name: string;
+    imageData: Blob;
+}
