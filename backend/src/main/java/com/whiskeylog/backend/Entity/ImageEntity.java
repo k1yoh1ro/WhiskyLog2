@@ -1,6 +1,9 @@
 package com.whiskeylog.backend.Entity;
 
+import java.sql.Types;
 import java.time.LocalDateTime;
+
+import org.hibernate.annotations.JdbcTypeCode;
 
 import jakarta.persistence.*;
 
@@ -18,6 +21,8 @@ public class ImageEntity {
     private String name;
 
     @Lob
+    // @Type(type = "org.hibernate.type.BinaryType")
+    @JdbcTypeCode(Types.BINARY)
     @Column(name = "image_data", columnDefinition = "BYTEA")
     private byte[] imageData;
 
