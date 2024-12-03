@@ -4,7 +4,7 @@ package com.whiskeylog.backend.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.whiskeylog.backend.model.User;
+import com.whiskeylog.backend.Entity.UserEntity;
 import com.whiskeylog.backend.repository.UserRepository;
 
 import java.util.List;
@@ -15,11 +15,11 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<User> getAllUsers() {
+    public List<UserEntity> getAllUsers() {
         return userRepository.findAll();
     }
 
-    public User getUserById(String id) {
+    public UserEntity getUserById(int id) {
         return userRepository.findById(id).orElse(null);
     }
 }

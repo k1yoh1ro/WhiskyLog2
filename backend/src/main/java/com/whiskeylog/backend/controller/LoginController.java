@@ -5,8 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.whiskeylog.backend.model.LoginRequest;
-import com.whiskeylog.backend.model.User;
+import com.whiskeylog.backend.Entity.LoginRequestEntity;
+import com.whiskeylog.backend.Entity.UserEntity;
 import com.whiskeylog.backend.services.UserService;
 
 
@@ -19,10 +19,10 @@ public class LoginController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/login")
-    public ResponseEntity<User> getData(@RequestBody LoginRequest lr) {
+    public ResponseEntity<UserEntity> getData(@RequestBody LoginRequestEntity lr) {
 
-        String id = lr.getId();
-        User u = userServ.getUserById(id);
+        int id = lr.getId();
+        UserEntity u = userServ.getUserById(id);
 
         if (u != null) {
             return ResponseEntity.ok(u);

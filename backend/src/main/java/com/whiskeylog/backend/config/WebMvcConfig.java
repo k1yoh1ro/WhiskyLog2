@@ -8,7 +8,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/api/**")
-                .allowedOrigins("http://localhost:4200");
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:3000") // 許可するオリジン
+                .allowedMethods("GET", "POST", "PUT", "DELETE") // 許可するHTTPメソッド
+                .allowedHeaders("*") // 許可するヘッダー
+                .allowCredentials(true); // クッキーの共有を許可
     }
 }

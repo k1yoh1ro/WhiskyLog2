@@ -1,18 +1,18 @@
-package com.whiskeylog.backend.model;
+package com.whiskeylog.backend.Entity;
 
-public class LoginRequest {
-    private String id;
+public class LoginRequestEntity {
+    private int id;
     private String username;
 
     // コンストラクタ
-    public LoginRequest() {}
+    public LoginRequestEntity() {}
 
     // ゲッターとセッター
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

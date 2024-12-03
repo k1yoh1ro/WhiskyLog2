@@ -1,4 +1,4 @@
-package com.whiskeylog.backend.model;
+package com.whiskeylog.backend.Entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -6,10 +6,10 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private int id;
 
     @JsonProperty("password")
     private String password;
@@ -20,11 +20,11 @@ public class User {
     @JsonProperty("mailaddress")
     private String mailaddress;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

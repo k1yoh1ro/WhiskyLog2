@@ -4,6 +4,11 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
+    environment:
+      POSTGRES_DB: $POSTGRES_DB
+      POSTGRES_URL: $POSTGRES_URL
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
     ports:
       - "8080:8080"
       - "5005:5005"

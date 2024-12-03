@@ -15,14 +15,13 @@ public class ImageController {
     @Autowired
     private ImageService imageService;
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/image/upload")
     public String uploadImage(
-        @RequestParam("whiskeyId") Long whiskeyId,
+        @RequestParam("whiskeyId") int whiskeyId,
         @RequestParam("name") String name,
         @RequestPart("file") MultipartFile file) {
         try {
-            imageService.InsertBlobData(whiskeyId, name, file.getBytes());
+            imageService.InsertBlobData(whiskeyId, name, file);
             return "File uploaded successfully!";
         } catch (IOException e) {
             return "File upload failed: " + e.getMessage();

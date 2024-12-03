@@ -1,4 +1,4 @@
-package com.whiskeylog.backend.model;
+package com.whiskeylog.backend.Entity;
 
 import java.time.LocalDateTime;
 
@@ -6,37 +6,37 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "whiskey_image")
-public class Image {
+public class ImageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @Column(name = "whiskey_id", nullable = false)
-    private Long whiskeyId;
+    private int whiskeyId;
 
     @Column(name = "name")
     private String name;
 
     @Lob
-    @Column(name = "image_data", nullable = false)
-    private byte[] whiskeyData;
+    @Column(name = "image_data", columnDefinition = "BYTEA")
+    private byte[] imageData;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Long getWhiskeyId() {
+    public int getWhiskeyId() {
         return whiskeyId;
     }
 
-    public void setWhiskeyId(Long whiskeyId) {
+    public void setWhiskeyId(int whiskeyId) {
         this.whiskeyId = whiskeyId;
     }
 
@@ -48,12 +48,12 @@ public class Image {
         this.name = name;
     }
 
-    public byte[] getWhiskeyData() {
-        return whiskeyData;
+    public byte[] getImageData() {
+        return imageData;
     }
 
-    public void setWhiskeyData(byte[] whiskeyData) {
-        this.whiskeyData = whiskeyData;
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
     }
 
     public LocalDateTime getCreatedAt() {
