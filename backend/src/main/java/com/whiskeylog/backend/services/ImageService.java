@@ -32,7 +32,7 @@ public class ImageService {
     }
 
     @Transactional
-    public void GetBlobData(Long id, String outputFilePath) throws IOException {
+    public void GetBlobData(int id, String outputFilePath) throws IOException {
         ImageEntity image = imageRepository.findById(id)
                                         .orElseThrow(() -> new IllegalArgumentException("File not found"));
         byte[] imageData = image.getImageData();

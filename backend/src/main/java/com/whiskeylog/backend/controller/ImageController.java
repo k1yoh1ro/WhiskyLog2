@@ -29,7 +29,7 @@ public class ImageController {
     }
 
     @GetMapping("/image/download")
-    public String downloadImage(@PathVariable Long imageId, @RequestParam("outputFilePath") String outputFilePath) {
+    public String downloadImage(@PathVariable int imageId, @RequestParam("outputFilePath") String outputFilePath) {
         try {
             imageService.GetBlobData(imageId, outputFilePath);
             return "File downloaded successfully!";
