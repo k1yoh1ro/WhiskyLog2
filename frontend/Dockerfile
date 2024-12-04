@@ -1,17 +1,14 @@
-# ベースイメージを指定
-FROM node:18
+# ベースイメージとしてNode.jsの公式イメージを使用
+FROM node:18-alpine
 
-# 作業ディレクトリを設定
+# アプリケーションディレクトリを作成
 WORKDIR /app
 
-# package.jsonとpackage-lock.jsonをコピーして依存関係をインストール
+# package.jsonとpackage-lock.jsonをコピー
 COPY package*.json ./
+
+# 依存関係をインストール
 RUN npm install
 
-# ソースコードをコピー
+# package.jsonとpackage-lock.jsonをコピー
 COPY . .
-
-# ポートを公開
-EXPOSE 3000
-
-CMD ["npm", "run", "dev"]

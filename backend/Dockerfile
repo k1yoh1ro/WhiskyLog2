@@ -1,15 +1,22 @@
-# ベースイメージとして OpenJDK を使用
-FROM openjdk:21-jdk-slim
+# アプリ実行前の準備の為のベースイメージ
+FROM maven:3.9.8-eclipse-temurin-21-alpine as deps
 
-# アプリケーション JAR ファイルの配置先を作成
+# 作業ディレクトリを作成し、そこに移動する
 WORKDIR /app
 
-# JAR ファイルをコンテナにコピー
-COPY target/backend-0.0.1-SNAPSHOT.jar app.jar
+# 依存関係のみを先にインストールしてキャッシュを利用
+COPY pom.xml .
+RUN mvn dependency:go-offline -B
 
-# デバッグ用のポートを公開（必要に応じて）
+# アプリケーションのソースコードをコピー
+COPY src ./src
+
+# アプリケーションをビルド
+RUN mvn install -DskipTests
+
+# # ホットリロードとデバッグのためのCMDコマンド
+# CMD ["java", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005", "-Dspring.devtools.remote.secret=mysecret", "-Dspring-boot.run.profiles=dev", "-cp", "target/classes:target/dependency/*", "com.whiskylog.backend.BackendApplication"]
+
+# ポートの指定
 EXPOSE 8080
 EXPOSE 5005
-
-# デバッグモードで Java アプリケーションを実行
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar /app/app.jar"]

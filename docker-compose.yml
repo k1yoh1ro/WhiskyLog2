@@ -1,32 +1,47 @@
-version: '3.8'
-
 services:
   backend:
+    container_name: backend
     build:
       context: ./backend
       dockerfile: Dockerfile
+    environment:
+      POSTGRES_DB: $POSTGRES_DB
+      POSTGRES_URL: $POSTGRES_URL
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
     ports:
       - "8080:8080"
       - "5005:5005"
+    volumes:
+      - ./backend:/app
+    restart: always
+    command: mvn spring-boot:run
     networks:
       - app-network
-    environment:
-      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
     depends_on:
       - database
 
   frontend:
+    container_name: frontend
     build:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+      - "9229:9229"
+    volumes:
+      - ./frontend:/app
+    command: [ npm, run, dev ]
+    environment:
+      - WATCHPACK_POLLING=true
     networks:
       - app-network
 
   reverse-proxy:
+    container_name: reverse-proxy
     build:
       context: ./reverse-proxy
+      dockerfile: Dockerfile
     ports:
       - "80:80"
     networks:
@@ -36,19 +51,46 @@ services:
       - frontend
 
   database:
-    image: postgres:13
-    volumes:
-      - db-data:/var/lib/postgresql/data
-      - ./database/init:/docker-entrypoint-initdb.d
+    container_name: database
+    build:
+      context: ./database
+      dockerfile: Dockerfile
     environment:
-      POSTGRES_DB: mydatabase
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: $POSTGRES_DB
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+    command: -c 'config_file=/etc/postgresql/postgresql.conf'
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
     networks:
       - app-network
+    restart: always
+    volumes:
+      - ./database/init:/docker-entrypoint-initdb.d
+      - ./database/config/postgresql.conf:/etc/postgresql/postgresql.conf
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: db_pgadmin
+    env_file:
+      - .env
+    volumes:
+      - pgadmindata:/var/lib/pgadmin4/storage
+    environment:
+      PGADMIN_DEFAULT_EMAIL: $PGADMIN_DEFAULT_EMAIL
+      PGADMIN_DEFAULT_PASSWORD: $PGADMIN_DEFAULT_PASSWORD
+      TZ: Asia/Tokyo
+    depends_on:
+      - database
+    ports:
+      - "5555:80"
 
 volumes:
   db-data:
+  pgadmindata:
+
 
 networks:
   app-network:

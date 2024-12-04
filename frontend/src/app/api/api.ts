@@ -1,12 +1,37 @@
-export const test = async () => {
-    let url = "http://localhost/api";
-    const res = await fetch(`${url}/greeting`, {
-        method: 'GET',
+import { User } from "@/types/types"
+import * as common from "@/utility/common"
+
+export const getUser = async (id: String): Promise<User> => {
+    let url = common.isDev();
+    const res = await fetch(`${url}/api/login`, {
+        method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
+        body: JSON.stringify({ id }),
         cache: 'no-store'
     });
-    const testString = await res.json()
-    return testString
+    const userArr = await res.json();
+    return userArr;
+};
+
+export const uploadImage = async (whiskeyId: number, file: File): Promise<void> => {
+    let url = common.isDev();
+    const formData = new FormData();
+    formData.append("whiskeyId", whiskeyId.toString());
+    formData.append("name", file.name);
+    formData.append("file", file);
+
+    const response = await fetch(`${url}/api/image/upload`, {
+        method: "POST",
+        body: formData,
+    });
+
+    if (!response.ok) {
+        throw new Error("Failed to upload image");
+    }
+};
+
+export const downloadImage = async (whiskeyId: number, file: File): Promise<void> => {
+
 }
