@@ -24,9 +24,6 @@ public class ImageService {
         image.setWhiskeyId(id);
         image.setName(name);
         image.setImageData(file.getBytes());
-        String type = file.getBytes().getClass().getSimpleName();
-        System.out.println(type);
-        System.out.println(file);
         
         imageRepository.save(image);
     }

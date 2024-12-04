@@ -13,7 +13,7 @@ export const getUser = async (id: String): Promise<User> => {
     });
     const userArr = await res.json();
     return userArr;
-}
+};
 
 export const uploadImage = async (whiskeyId: number, file: File): Promise<void> => {
     let url = common.isDev();
@@ -31,3 +31,7 @@ export const uploadImage = async (whiskeyId: number, file: File): Promise<void> 
         throw new Error("Failed to upload image");
     }
 };
+
+export const downloadImage = async (whiskeyId: number, file: File): Promise<void> => {
+
+}
