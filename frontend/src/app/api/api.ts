@@ -32,6 +32,15 @@ export const uploadImage = async (whiskeyId: number, file: File): Promise<void> 
     }
 };
 
-export const downloadImage = async (whiskeyId: number, file: File): Promise<void> => {
-
+export const downloadImages = async (): Promise<any[]> => {
+    let url = common.isDev();
+    const res = await fetch(`${url}/api/image/download`, {
+        method: "GET",
+        cache: "no-store"
+    })
+    if (!res.ok) {
+        throw new Error("Failed to fetch image list");
+    }
+    const images = await res.json();
+    return images;
 }
