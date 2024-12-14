@@ -1,11 +1,15 @@
 package com.whiskeylog.backend.controller;
 
 import java.io.IOException;
+import java.util.stream.Collectors;
+import java.util.Base64;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.whiskeylog.backend.Entity.ImageDTOEntity;
 import com.whiskeylog.backend.services.ImageService;
 
 @RestController
@@ -29,12 +33,13 @@ public class ImageController {
     }
 
     @GetMapping("/image/download")
-    public String downloadImage(@PathVariable int imageId, @RequestParam("outputFilePath") String outputFilePath) {
-        try {
-            imageService.GetBlobData(imageId, outputFilePath);
-            return "File downloaded successfully!";
-        } catch (IOException e) {
-            return "File download failed: " + e.getMessage();
-        }
+    public List<ImageDTOEntity> downloadImages() throws IOException {
+        return imageService.getAllImages().stream()
+                .map(image -> new ImageDTOEntity(
+                    image.getId(),
+                    image.getName(),
+                    image.getWhiskeyId(),
+                    Base64.getEncoder().encodeToString(image.getImageData())))
+                .collect(Collectors.toList());
     }
 }
