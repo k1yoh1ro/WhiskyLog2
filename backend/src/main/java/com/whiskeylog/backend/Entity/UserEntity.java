@@ -1,4 +1,4 @@
-package com.whiskeylog.backend.Entity;
+package com.whiskeylog.backend.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

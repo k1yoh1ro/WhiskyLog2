@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from "react";
-import { uploadImage } from "@/app/api/api";
+import { insertWhiskeyData } from "@/app/api/api";
 
 export default function downloadImagePage() {
     const [file, setFile] = useState<File | null>(null);
@@ -25,7 +25,7 @@ export default function downloadImagePage() {
 
         try {
             setStatus("Downloading...");
-            await uploadImage(whiskeyId, file);
+            await insertWhiskeyData(whiskeyId, file);
             setStatus("Image uploaded successfully!");
         } catch (error) {
             console.error(error);

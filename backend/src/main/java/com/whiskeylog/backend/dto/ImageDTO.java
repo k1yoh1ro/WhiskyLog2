@@ -1,12 +1,12 @@
-package com.whiskeylog.backend.Entity;
+package com.whiskeylog.backend.dto;
 
-public class ImageDTOEntity {
+public class ImageDTO {
     private int id;
     private int whiskeyId;
     private String name;
     private String imageData;
 
-    public ImageDTOEntity(int id, String name, int whiskeyId, String imageData) {
+    public ImageDTO(int id, String name, int whiskeyId, String imageData) {
         this.id = id;
         this.name = name;
         this.whiskeyId = whiskeyId;
@@ -44,4 +44,5 @@ public class ImageDTOEntity {
     public void setImageData(String data) {
         this.imageData = data;
     }
+
 }

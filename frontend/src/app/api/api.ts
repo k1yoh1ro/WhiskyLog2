@@ -1,4 +1,4 @@
-import { User } from "@/types/types"
+import { User, FormData } from "@/types/types"
 import * as common from "@/utility/common"
 
 export const getUser = async (id: String): Promise<User> => {
@@ -15,21 +15,29 @@ export const getUser = async (id: String): Promise<User> => {
     return userArr;
 };
 
-export const uploadImage = async (whiskeyId: number, file: File): Promise<void> => {
+export const insertWhiskeyData = async (data: FormData): Promise<void> => {
     let url = common.isDev();
-    const formData = new FormData();
-    formData.append("whiskeyId", whiskeyId.toString());
-    formData.append("name", file.name);
-    formData.append("file", file);
-
-    const response = await fetch(`${url}/api/image/upload`, {
+    const res = await fetch(`${url}/api/put/whiskey-data`, {
         method: "POST",
-        body: formData,
+        body: data as any, //なぜanyを使うのか
+    });
+    const ok = await res.json(); // JAVAからJSON形式で受け取らないとエラーになる。
+    return ok
+};
+
+export const uploadImage = async (formData: FormData): Promise<void> => {
+    let url = common.isDev();
+
+    const res = await fetch(`${url}/api/image/upload`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
     });
 
-    if (!response.ok) {
-        throw new Error("Failed to upload image");
-    }
+    const ok = await res.json(); // JAVAからJSON形式で受け取らないとエラーになる。
+    return ok
 };
 
 export const downloadImages = async (): Promise<any[]> => {
@@ -40,6 +48,19 @@ export const downloadImages = async (): Promise<any[]> => {
     })
     if (!res.ok) {
         throw new Error("Failed to fetch image list");
+    }
+    const images = await res.json();
+    return images;
+}
+
+export const getTriedList = async (): Promise<any[]> => {
+    let url = common.isDev();
+    const res = await fetch(`${url}/api/triedList`, {
+        method: "GET",
+        cache: "no-store"
+    })
+    if (!res.ok) {
+        throw new Error("Failed to fetch tried list");
     }
     const images = await res.json();
     return images;

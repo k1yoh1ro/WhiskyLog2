@@ -5,8 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.whiskeylog.backend.Entity.LoginRequestEntity;
-import com.whiskeylog.backend.Entity.UserEntity;
+import com.whiskeylog.backend.entity.LoginRequestEntity;
+import com.whiskeylog.backend.entity.UserEntity;
 import com.whiskeylog.backend.services.UserService;
 
 

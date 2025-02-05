@@ -1,4 +1,4 @@
-package com.whiskeylog.backend.Entity;
+package com.whiskeylog.backend.entity;
 
 public class LoginRequestEntity {
     private int id;

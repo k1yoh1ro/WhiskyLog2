@@ -4,12 +4,13 @@ import java.io.IOException;
 import java.util.stream.Collectors;
 import java.util.Base64;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.whiskeylog.backend.Entity.ImageDTOEntity;
+import com.whiskeylog.backend.dto.ImageDTO;
+
 import com.whiskeylog.backend.services.ImageService;
 
 @RestController
@@ -19,23 +20,21 @@ public class ImageController {
     @Autowired
     private ImageService imageService;
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/image/upload")
-    public String uploadImage(
-        @RequestParam("whiskeyId") int whiskeyId,
-        @RequestParam("name") String name,
-        @RequestPart("file") MultipartFile file) {
+    public Map<String, String> uploadImage(@RequestBody Map<String, String> formData) {
         try {
-            imageService.InsertBlobData(whiskeyId, name, file);
-            return "File uploaded successfully!";
+            imageService.InsertBlobData(formData);
+            return Map.of("OKStatus", "OK");
         } catch (IOException e) {
-            return "File upload failed: " + e.getMessage();
+            return Map.of("NGStatus", "Data insert failed: " + e.getMessage());
         }
     }
 
     @GetMapping("/image/download")
-    public List<ImageDTOEntity> downloadImages() throws IOException {
+    public List<ImageDTO> downloadImages() throws IOException {
         return imageService.getAllImages().stream()
-                .map(image -> new ImageDTOEntity(
+                .map(image -> new ImageDTO(
                     image.getId(),
                     image.getName(),
                     image.getWhiskeyId(),
