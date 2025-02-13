@@ -25,7 +25,7 @@ export interface Whiskeys {
     createdAt: Date;
 }
 
-export interface FormData {
+export interface WhiskeyFormData {
     whiskeyId: string;
     name: string;
     country: string;

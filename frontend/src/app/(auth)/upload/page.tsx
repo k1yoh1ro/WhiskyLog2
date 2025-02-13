@@ -2,11 +2,11 @@
 
 import React, { useState } from "react";
 import { insertWhiskeyData, uploadImage } from "@/app/api/api";
-import { FormData } from "@/types/types";
+import { WhiskeyFormData } from "@/types/types";
 
 export default function UploadImagePage() {
     // 型が混同している場合は、interfaceを作成してそこで型指定
-    const [formData, setFormData] = useState<FormData>({
+    const [formData, setFormData] = useState<WhiskeyFormData>({
         whiskeyId: '',
         name: '',
         country: '',
