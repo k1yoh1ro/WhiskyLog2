@@ -9,17 +9,7 @@ public class WhiskeyDataDTO {
     private String type;
     private String alcoVol;
     private String price;
-    private MultipartFile file;
-
-    public void WhiskeyDTO(String whiskeyId, String name, String country, String type, String alcoVol, String price, MultipartFile file) {
-        this.whiskeyId  = whiskeyId;
-        this.name  = name;
-        this.country = country;
-        this.type = type;
-        this.alcoVol = alcoVol;
-        this.price = price;
-        this.file = file;
-    }
+    private MultipartFile image;
 
     public String getWhiskeyId() {
         return this.whiskeyId;
@@ -69,11 +59,11 @@ public class WhiskeyDataDTO {
         this.price = price;
     }
 
-    public MultipartFile getFile() {
-        return this.file;
+    public MultipartFile getImage() {
+        return this.image;
     }
 
-    public void setFile(MultipartFile file) {
-        this.file = file;
+    public void setImage(MultipartFile file) {
+        this.image = file;
     }
 }

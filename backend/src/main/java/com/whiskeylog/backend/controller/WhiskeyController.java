@@ -4,32 +4,37 @@ import java.io.IOException;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.whiskeylog.backend.dto.WhiskeyDataDTO;
 // ｺﾝﾄﾛｰﾗｰはｻｰﾋﾞｽｸﾗｽだけをｲﾝﾎﾟｰﾄするべき(単一責任)
 import com.whiskeylog.backend.services.WhiskeyService;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
 @RequestMapping("/")
+@CrossOrigin(origins = "http://localhost:3000")
 public class WhiskeyController {
     
     @Autowired
     private WhiskeyService whiskeyService;
 
-    @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping(value = "/put/whiskey-data")
-    public Map<String, String> InsertWhiskeyData(@RequestBody Map<String, Object> formData){ //推奨の@RequestParamにすると値が正常に受け取れない。原因は？
+    @PostMapping(value = "/put/whiskey-data", consumes = "multipart/form-data")
+    public ResponseEntity<Map<String, String>> InsertWhiskeyData(
+        @ModelAttribute WhiskeyDataDTO whiskeyData) {
         try {
-            whiskeyService.InsertWhiskeyData(formData);
-            return Map.of("OKStatus", "OK"); // Next.jsにJSON形式で渡さないとエラーになる。
+            whiskeyService.InsertWhiskeyData(whiskeyData);
+            return ResponseEntity.ok(Map.of("OKStatus", "OK"));
         } catch (IOException e) {
-            return Map.of("NGStatus", "Data insert failed: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("NGStatus", "Data insert failed: " + e.getMessage()));
         }
     }
 }

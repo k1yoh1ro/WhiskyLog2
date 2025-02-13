@@ -1,12 +1,11 @@
 package com.whiskeylog.backend.services;
 
 import java.io.IOException;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
+import com.whiskeylog.backend.dto.WhiskeyDataDTO;
 // ｻｰﾋﾞｽｸﾗｽはﾘﾎﾟｼﾞﾄﾘｸﾗｽだけをｲﾝﾎﾟｰﾄするべき(単一責任)
 import com.whiskeylog.backend.entity.WhiskeyEntity;
 import com.whiskeylog.backend.repository.WhiskeyRepository;
@@ -20,15 +19,31 @@ public class WhiskeyService {
     private WhiskeyRepository whiskeyRepository;
 
     @Transactional
-    public void InsertWhiskeyData(@RequestBody Map<String, Object> formData) throws IOException {
-        
-        WhiskeyEntity whiskey = new WhiskeyEntity();
-        whiskey.setName(String.valueOf(formData.get("name")));
-        whiskey.setCountry(String.valueOf(formData.get("country")));
-        whiskey.setType(String.valueOf(formData.get("type")));
-        whiskey.setAlcoVol(String.valueOf(formData.get("alcoVol")));
-        whiskey.setPrice(String.valueOf(formData.get("price")));
+    public void InsertWhiskeyData(WhiskeyDataDTO whiskeyData) throws IOException {
+        // 文字列データを取得
+        String alcoVol = whiskeyData.getAlcoVol();
+        String country = whiskeyData.getCountry();
+        String name = whiskeyData.getName();
+        String price = whiskeyData.getPrice();
+        String type = whiskeyData.getType();
+        // String whiskeyId = whiskeyData.getWhiskeyId();
 
-        whiskeyRepository.save(whiskey);
+        // Whiskey エンティティを作成
+        WhiskeyEntity whiskeyEntity = new WhiskeyEntity();
+        whiskeyEntity.setAlcoVol(alcoVol);
+        whiskeyEntity.setCountry(country);
+        whiskeyEntity.setName(name);
+        whiskeyEntity.setPrice(price);
+        whiskeyEntity.setType(type);
+        // whiskey.setWhiskeyId(Long.parseLong(whiskeyId));
+        // MultipartFile image = whiskeyData.getFile();// 画像データの処理
+
+        // if (image != null && !image.isEmpty()) {
+        //     String fileName = image.getOriginalFilename();
+        //     // 画像の保存処理（例: サーバーのディレクトリに保存）
+        //     image.transferTo(new java.io.File("/path/to/save/" + fileName));
+        // }
+
+        whiskeyRepository.save(whiskeyEntity);
     }
 }

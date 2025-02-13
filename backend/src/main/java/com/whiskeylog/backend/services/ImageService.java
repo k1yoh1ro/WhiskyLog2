@@ -3,14 +3,12 @@ package com.whiskeylog.backend.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Map;
 
+import com.whiskeylog.backend.dto.ImageDTO;
 import com.whiskeylog.backend.entity.ImageEntity;
 import com.whiskeylog.backend.repository.ImageRepository;
 
@@ -21,14 +19,18 @@ public class ImageService {
     private ImageRepository imageRepository;
 
     @Transactional
-    public void InsertBlobData(@RequestBody Map<String, String> formData) throws IOException {
+    public void InsertBlobData(ImageDTO imageData) throws IOException {
+        //データを取得
+        int id = imageData.getWhiskeyId();
+        String name = imageData.getName();
+        byte[] image = imageData.getImage().getBytes();
 
-        ImageEntity image = new ImageEntity();
-        image.setWhiskeyId(Integer.valueOf(formData.get("whiskeyId")));
-        image.setName(formData.get("name"));
-        image.setImageData(formData.get("image").getBytes(StandardCharsets.UTF_8));
+        ImageEntity imageEntity = new ImageEntity();
+        imageEntity.setWhiskeyId(id);
+        imageEntity.setName(name);
+        imageEntity.setImageData(image);
         
-        imageRepository.save(image);
+        imageRepository.save(imageEntity);
     }
 
     @Transactional
