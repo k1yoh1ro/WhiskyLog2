@@ -33,8 +33,7 @@ export default function UploadImagePage() {
             }
             try {
                 setStatus("Uploading...");
-                let regId = await insertWhiskeyData(formData);
-                await uploadImage(regId, formData);
+                await insertWhiskeyData(formData);
                 setStatus("Image uploaded successfully!");
             } catch (error) {
                 console.error(error);

@@ -9,34 +9,39 @@ import com.whiskeylog.backend.dto.WhiskeyDataDTO;
 // ｻｰﾋﾞｽｸﾗｽはﾘﾎﾟｼﾞﾄﾘｸﾗｽだけをｲﾝﾎﾟｰﾄするべき(単一責任)
 import com.whiskeylog.backend.entity.WhiskeyEntity;
 import com.whiskeylog.backend.repository.WhiskeyRepository;
+import com.whiskeylog.backend.services.ImageService;
+
 
 import jakarta.transaction.Transactional;
 
 @Service // ｻｰﾋﾞｽｸﾗｽであることを表すｱﾉﾃｰｼｮﾝ
 public class WhiskeyService {
+    
+    private WhiskeyRepository whiskeyRepository;
+    private ImageService imageService;
 
     @Autowired
-    private WhiskeyRepository whiskeyRepository;
+    public WhiskeyService(WhiskeyRepository whiskeyRepository, ImageService imageService) {
+        this.whiskeyRepository = whiskeyRepository;
+        this.imageService = imageService;
+    }
 
     @Transactional
-    public int InsertWhiskeyData(WhiskeyDataDTO whiskeyData) throws IOException {
-        // 文字列データを取得
-        String alcoVol = whiskeyData.getAlcoVol();
-        String country = whiskeyData.getCountry();
-        String name = whiskeyData.getName();
-        String price = whiskeyData.getPrice();
-        String type = whiskeyData.getType();
-
-        // Whiskey エンティティを作成
-        WhiskeyEntity whiskeyEntity = new WhiskeyEntity();
-        whiskeyEntity.setAlcoVol(alcoVol);
-        whiskeyEntity.setCountry(country);
-        whiskeyEntity.setName(name);
-        whiskeyEntity.setPrice(price);
-        whiskeyEntity.setType(type);
-
-        //JpaRepositoryのsave()は登録後のEntityを返す。そこからID取得し返却
-        whiskeyRepository.save(whiskeyEntity);
-        return whiskeyEntity.getId();
+    public void InsertWhiskeyData(WhiskeyDataDTO whiskeyData) throws IOException {
+        try {
+            WhiskeyEntity whiskeyEntity = new WhiskeyEntity();
+            whiskeyEntity.setAlcoVol(whiskeyData.getAlcoVol());
+            whiskeyEntity.setCountry(whiskeyData.getCountry());
+            whiskeyEntity.setName(whiskeyData.getName());
+            whiskeyEntity.setPrice(whiskeyData.getPrice());
+            whiskeyEntity.setType(whiskeyData.getType());
+    
+            whiskeyRepository.save(whiskeyEntity);
+            
+            whiskeyData.setWhiskeyId(whiskeyEntity.getId());
+            imageService.InsertBlobData(whiskeyData);
+        } catch (IOException e) {
+            throw new IOException("failed" + e.getMessage());
+        }
     }
 }

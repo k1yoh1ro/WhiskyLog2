@@ -13,6 +13,9 @@ import com.whiskeylog.backend.dto.WhiskeyDataDTO;
 // ｺﾝﾄﾛｰﾗｰはｻｰﾋﾞｽｸﾗｽだけをｲﾝﾎﾟｰﾄするべき(単一責任)
 import com.whiskeylog.backend.services.WhiskeyService;
 
+// 後続のﾃﾞｰﾀ登録作業の為、別ｺﾝﾄﾛｰﾗｰの呼び出し
+// import com.whiskeylog.backend.controller.ImageController;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,8 +34,8 @@ public class WhiskeyController {
         @ModelAttribute WhiskeyDataDTO whiskeyData) {
         try {
             // 画像保存の外部キーに使用する為自動採番を返す
-            int regId = whiskeyService.InsertWhiskeyData(whiskeyData);
-            return ResponseEntity.ok(Map.of("regId", String.valueOf(regId)));
+            whiskeyService.InsertWhiskeyData(whiskeyData);
+            return ResponseEntity.ok(Map.of("OKStatus", "succesfully"));
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(Map.of("NGStatus", "Data insert failed: " + e.getMessage()));

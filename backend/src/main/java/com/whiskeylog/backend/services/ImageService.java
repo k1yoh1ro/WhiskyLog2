@@ -8,7 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-import com.whiskeylog.backend.dto.ImageDTO;
+import com.whiskeylog.backend.dto.WhiskeyDataDTO;
 import com.whiskeylog.backend.entity.ImageEntity;
 import com.whiskeylog.backend.repository.ImageRepository;
 
@@ -19,16 +19,12 @@ public class ImageService {
     private ImageRepository imageRepository;
 
     @Transactional
-    public void InsertBlobData(ImageDTO imageData) throws IOException {
+    public void InsertBlobData(WhiskeyDataDTO whiskeyData) throws IOException {
         try {
-            if (imageData.getWhiskeyId() == null || imageData.getWhiskeyId().isEmpty()) {
-                throw new IllegalArgumentException("whiskeyId is missing");
-            }
-
             //データを取得
-            int whiskeyId = Integer.parseInt(imageData.getWhiskeyId());
-            String name = imageData.getName();
-            byte[] image = imageData.getImage().getBytes();
+            int whiskeyId = whiskeyData.getWhiskeyId();
+            String name = whiskeyData.getName();
+            byte[] image = whiskeyData.getImage().getBytes();
     
             ImageEntity imageEntity = new ImageEntity();
             imageEntity.setWhiskeyId(whiskeyId);
@@ -38,7 +34,7 @@ public class ImageService {
             imageRepository.save(imageEntity);
 
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Invalid whiskeyId: " + imageData.getWhiskeyId(), e);
+            throw new IllegalArgumentException("Invalid whiskeyId: " + whiskeyData.getWhiskeyId(), e);
         }
     }
 

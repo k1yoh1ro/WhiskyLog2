@@ -38,8 +38,8 @@ export const insertWhiskeyData = async (data: WhiskeyFormData): Promise<number> 
         body: formData
     });
     // 自動採番で登録されたIDを取得
-    const rtnObj = await res.json(); // JAVAからJSON形式で受け取らないとエラーになる。
-    return rtnObj.regId;
+    const ok = await res.json(); // JAVAからJSON形式で受け取らないとエラーになる。
+    return ok;
 };
 
 export const uploadImage = async (regId: number, data: WhiskeyFormData): Promise<void> => {

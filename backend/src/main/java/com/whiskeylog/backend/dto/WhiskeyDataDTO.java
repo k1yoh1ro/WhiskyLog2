@@ -3,12 +3,21 @@ package com.whiskeylog.backend.dto;
 import org.springframework.web.multipart.MultipartFile;
 
 public class WhiskeyDataDTO {
+    private int whiskeyId;
     private String name;
     private String country;
     private String type;
     private String alcoVol;
     private String price;
     private MultipartFile image;
+
+    public int getWhiskeyId() {
+        return this.whiskeyId;
+    }
+
+    public void setWhiskeyId(int whiskeyId) {
+        this.whiskeyId = whiskeyId;
+    }
 
     public String getName() {
         return this.name;
