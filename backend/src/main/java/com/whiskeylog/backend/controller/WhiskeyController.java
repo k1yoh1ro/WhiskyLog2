@@ -30,8 +30,9 @@ public class WhiskeyController {
     public ResponseEntity<Map<String, String>> InsertWhiskeyData(
         @ModelAttribute WhiskeyDataDTO whiskeyData) {
         try {
-            whiskeyService.InsertWhiskeyData(whiskeyData);
-            return ResponseEntity.ok(Map.of("OKStatus", "OK"));
+            // 画像保存の外部キーに使用する為自動採番を返す
+            int regId = whiskeyService.InsertWhiskeyData(whiskeyData);
+            return ResponseEntity.ok(Map.of("regId", String.valueOf(regId)));
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(Map.of("NGStatus", "Data insert failed: " + e.getMessage()));

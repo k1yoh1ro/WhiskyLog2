@@ -26,7 +26,6 @@ export interface Whiskeys {
 }
 
 export interface WhiskeyFormData {
-    whiskeyId: string;
     name: string;
     country: string;
     type: string;

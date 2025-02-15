@@ -20,17 +20,26 @@ public class ImageService {
 
     @Transactional
     public void InsertBlobData(ImageDTO imageData) throws IOException {
-        //データを取得
-        int id = imageData.getWhiskeyId();
-        String name = imageData.getName();
-        byte[] image = imageData.getImage().getBytes();
+        try {
+            if (imageData.getWhiskeyId() == null || imageData.getWhiskeyId().isEmpty()) {
+                throw new IllegalArgumentException("whiskeyId is missing");
+            }
 
-        ImageEntity imageEntity = new ImageEntity();
-        imageEntity.setWhiskeyId(id);
-        imageEntity.setName(name);
-        imageEntity.setImageData(image);
-        
-        imageRepository.save(imageEntity);
+            //データを取得
+            int whiskeyId = Integer.parseInt(imageData.getWhiskeyId());
+            String name = imageData.getName();
+            byte[] image = imageData.getImage().getBytes();
+    
+            ImageEntity imageEntity = new ImageEntity();
+            imageEntity.setWhiskeyId(whiskeyId);
+            imageEntity.setName(name);
+            imageEntity.setImageData(image);
+            
+            imageRepository.save(imageEntity);
+
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid whiskeyId: " + imageData.getWhiskeyId(), e);
+        }
     }
 
     @Transactional

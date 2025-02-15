@@ -7,7 +7,6 @@ import { WhiskeyFormData } from "@/types/types";
 export default function UploadImagePage() {
     // 型が混同している場合は、interfaceを作成してそこで型指定
     const [formData, setFormData] = useState<WhiskeyFormData>({
-        whiskeyId: '',
         name: '',
         country: '',
         type: '',
@@ -27,15 +26,15 @@ export default function UploadImagePage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (formData.whiskeyId != undefined) {
-            if (!formData.image || Number(formData.whiskeyId) <= 0) {
+        if (formData.name != undefined) {
+            if (!formData.image) {
                 setStatus("Please provide all required fields.");
                 return;
             }
             try {
                 setStatus("Uploading...");
-                await insertWhiskeyData(formData);
-                await uploadImage(formData);
+                let regId = await insertWhiskeyData(formData);
+                await uploadImage(regId, formData);
                 setStatus("Image uploaded successfully!");
             } catch (error) {
                 console.error(error);
@@ -54,12 +53,6 @@ export default function UploadImagePage() {
             <h1>Upload Whiskey Image</h1>
             <form onSubmit={handleSubmit}>
                 <div className="flex">
-                    <input
-                        type="text"
-                        placeholder="Whiskey ID"
-                        defaultValue={formData.whiskeyId}
-                        onChange={(e) => setFormData({ ...formData, whiskeyId: e.target.value })}
-                    />
                     <input
                         type="text"
                         placeholder="name"

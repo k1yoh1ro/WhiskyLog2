@@ -19,14 +19,13 @@ public class WhiskeyService {
     private WhiskeyRepository whiskeyRepository;
 
     @Transactional
-    public void InsertWhiskeyData(WhiskeyDataDTO whiskeyData) throws IOException {
+    public int InsertWhiskeyData(WhiskeyDataDTO whiskeyData) throws IOException {
         // 文字列データを取得
         String alcoVol = whiskeyData.getAlcoVol();
         String country = whiskeyData.getCountry();
         String name = whiskeyData.getName();
         String price = whiskeyData.getPrice();
         String type = whiskeyData.getType();
-        // String whiskeyId = whiskeyData.getWhiskeyId();
 
         // Whiskey エンティティを作成
         WhiskeyEntity whiskeyEntity = new WhiskeyEntity();
@@ -35,15 +34,9 @@ public class WhiskeyService {
         whiskeyEntity.setName(name);
         whiskeyEntity.setPrice(price);
         whiskeyEntity.setType(type);
-        // whiskey.setWhiskeyId(Long.parseLong(whiskeyId));
-        // MultipartFile image = whiskeyData.getFile();// 画像データの処理
 
-        // if (image != null && !image.isEmpty()) {
-        //     String fileName = image.getOriginalFilename();
-        //     // 画像の保存処理（例: サーバーのディレクトリに保存）
-        //     image.transferTo(new java.io.File("/path/to/save/" + fileName));
-        // }
-
+        //JpaRepositoryのsave()は登録後のEntityを返す。そこからID取得し返却
         whiskeyRepository.save(whiskeyEntity);
+        return whiskeyEntity.getId();
     }
 }

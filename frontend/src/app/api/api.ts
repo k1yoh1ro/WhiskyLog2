@@ -15,7 +15,7 @@ export const getUser = async (id: String): Promise<User> => {
     return userArr;
 };
 
-export const insertWhiskeyData = async (data: WhiskeyFormData): Promise<void> => {
+export const insertWhiskeyData = async (data: WhiskeyFormData): Promise<number> => {
     let url = common.isDev();
 
     // FormData の作成 型エラーの回避
@@ -24,7 +24,6 @@ export const insertWhiskeyData = async (data: WhiskeyFormData): Promise<void> =>
     // 一方で、WhiskeyFormData は単なるオブジェクト ({ key: value } の形) なので、そのまま渡すと FormData のオーバーロードと一致しません。
     // そのため、一度 FormData オブジェクトを作成し、それを fetch に渡すことでエラーを防ぐことができます。
     const formData = new FormData();
-    formData.append("whiskeyId", data.whiskeyId);
     formData.append("name", data.name);
     formData.append("country", data.country);
     formData.append("type", data.type);
@@ -38,15 +37,17 @@ export const insertWhiskeyData = async (data: WhiskeyFormData): Promise<void> =>
         method: "POST",
         body: formData
     });
-    const ok = await res.json(); // JAVAからJSON形式で受け取らないとエラーになる。
-    return ok
+    // 自動採番で登録されたIDを取得
+    const rtnObj = await res.json(); // JAVAからJSON形式で受け取らないとエラーになる。
+    return rtnObj.regId;
 };
 
-export const uploadImage = async (data: WhiskeyFormData): Promise<void> => {
+export const uploadImage = async (regId: number, data: WhiskeyFormData): Promise<void> => {
     let url = common.isDev();
 
     const formData = new FormData();
-    formData.append("whiskeyId", data.whiskeyId);
+    // FormData.appendは使用上、numberを直接渡せない?
+    formData.append("whiskeyId", regId.toString());
     formData.append("name", data.name);
     if (data.image) {
         // Fileの場合、第三引数を指定しないといけない。ファイル名も正しく送信できる

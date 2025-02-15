@@ -5,19 +5,19 @@ CREATE DATABASE WLDB;
 
 drop table if exists users;
 create table users (
-  id SERIAL PRIMARY KEY,
-  password character varying(255),
-  username character varying(100),
-  mailaddress character varying(255)
+  id BIGSERIAL PRIMARY KEY,
+  password VARCHAR(255),
+  username VARCHAR(100),
+  mailaddress VARCHAR(255)
 );
 
 drop table if exists whiskeys;
 CREATE TABLE whiskeys (
-  id SERIAL PRIMARY KEY,
+  id BIGSERIAL PRIMARY KEY, -- INTEGER型で自動採番。BIGSERIALはBIGINT型
   name VARCHAR(100),
   country VARCHAR(50),
   type VARCHAR(50),
-  alcoVol VARCHAR(3),
+  alco_vol VARCHAR(3),
   price VARCHAR(255),
   rate1 VARCHAR(255),
   rate2 VARCHAR(255),
@@ -30,7 +30,7 @@ CREATE TABLE whiskeys (
 drop table if exists whiskey_image;
 create table whiskey_image (
   id SERIAL PRIMARY KEY,
-  whiskey_id INT NOT NULL,
+  whiskey_id BIGSERIAL,
   name VARCHAR(100),
   image_data BYTEA NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

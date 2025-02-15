@@ -25,7 +25,7 @@ public class WhiskeyEntity {
     @Column(name = "type")
     private String type;
 
-    @Column(name = "alcoVol")
+    @Column(name = "alco_vol")
     private String alcoVol;
 
     @Column(name = "price")

@@ -3,18 +3,9 @@ package com.whiskeylog.backend.dto;
 import org.springframework.web.multipart.MultipartFile;
 
 public class ImageDTO {
-    private int id;
-    private int whiskeyId;
+    private String whiskeyId;
     private String name;
     private MultipartFile image;
-
-    public int getId() {
-        return this.id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return this.name;
@@ -24,11 +15,11 @@ public class ImageDTO {
         this.name = name;
     }
 
-    public int getWhiskeyId() {
+    public String getWhiskeyId() {
         return this.whiskeyId;
     }
 
-    public void setWhiskeyId(int whiskeyId) {
+    public void setWhiskeyId(String whiskeyId) {
         this.whiskeyId = whiskeyId;
     }
 
