@@ -35,6 +35,12 @@ export default function UploadImagePage() {
                 setStatus("Uploading...");
                 await insertWhiskeyData(formData);
                 setStatus("Image uploaded successfully!");
+                setFormData({...formData, name: ""})
+                setFormData({ ...formData, country: "" })
+                setFormData({ ...formData, type: "" })
+                setFormData({ ...formData, alcoVol: "" })
+                setFormData({ ...formData, price: "" })
+                setFormData({ ...formData, image: null })
             } catch (error) {
                 console.error(error);
                 setStatus("Failed to upload image.");
