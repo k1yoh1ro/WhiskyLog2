@@ -4,7 +4,7 @@ package com.whiskeylog.backend.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.whiskeylog.backend.Entity.UserEntity;
+import com.whiskeylog.backend.entity.UserEntity;
 import com.whiskeylog.backend.repository.UserRepository;
 
 import java.util.List;

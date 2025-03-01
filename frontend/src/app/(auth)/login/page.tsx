@@ -5,6 +5,7 @@ import { getUser } from "@/app/api/api";
 import { useRouter } from 'next/navigation';
 
 
+
 export default function Home() {
   const [formData, setFormData] = useState({ id: '', password: '' });
   const [errorMessage, setErrorMessage] = useState('');

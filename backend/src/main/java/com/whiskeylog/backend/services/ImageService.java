@@ -3,13 +3,13 @@ package com.whiskeylog.backend.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-import com.whiskeylog.backend.Entity.ImageEntity;
+import com.whiskeylog.backend.dto.WhiskeyDataDTO;
+import com.whiskeylog.backend.entity.ImageEntity;
 import com.whiskeylog.backend.repository.ImageRepository;
 
 @Service
@@ -19,14 +19,23 @@ public class ImageService {
     private ImageRepository imageRepository;
 
     @Transactional
-    public void InsertBlobData(int id, String name, MultipartFile file) throws IOException {
+    public void InsertBlobData(WhiskeyDataDTO whiskeyData) throws IOException {
+        try {
+            //データを取得
+            int whiskeyId = whiskeyData.getWhiskeyId();
+            String name = whiskeyData.getName();
+            byte[] image = whiskeyData.getImage().getBytes();
+    
+            ImageEntity imageEntity = new ImageEntity();
+            imageEntity.setWhiskeyId(whiskeyId);
+            imageEntity.setName(name);
+            imageEntity.setImageData(image);
+            
+            imageRepository.save(imageEntity);
 
-        ImageEntity image = new ImageEntity();
-        image.setWhiskeyId(id);
-        image.setName(name);
-        image.setImageData(file.getBytes());
-        
-        imageRepository.save(image);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid whiskeyId: " + whiskeyData.getWhiskeyId(), e);
+        }
     }
 
     @Transactional

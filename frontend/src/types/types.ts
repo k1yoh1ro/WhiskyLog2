@@ -10,3 +10,26 @@ export interface WhiskeyImage {
     name: string;
     imageData: Blob;
 }
+
+export interface Whiskeys {
+    name: string;
+    country: string;
+    type: string;
+    alcoVol: string;
+    price: string;
+    rate1: string;
+    rate2: string;
+    rate3: string;
+    rate4: string;
+    rate5: string;
+    createdAt: Date;
+}
+
+export interface WhiskeyFormData {
+    name: string;
+    country: string;
+    type: string;
+    alcoVol: string;
+    price: string;
+    image: File | null;
+}
